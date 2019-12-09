@@ -43,6 +43,8 @@ docker \
 
 cat "$annotation_path"
 
+echo "--- Test Status: ${TESTS_EXIT_STATUS}" 
+
 if grep -q "<details>" "$annotation_path"; then
 
   if ! check_size; then
