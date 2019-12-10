@@ -49,9 +49,7 @@ if grep -q "<details>" "$annotation_path"; then
       echo "--- :warning: Failures too large to annotate"
       echo "The failures are too large to create a build annotation. Please inspect the failed JUnit artifacts manually."
       
-      cat > status << EOF
-      0
-      EOF
+      echo "0" | tee status
 
       buildkite-agent artifact upload status
 
@@ -66,9 +64,7 @@ if grep -q "<details>" "$annotation_path"; then
   then
     echo "--- :boom: Failing build due to error"
 
-    cat > status << EOF
-    1
-    EOF
+    echo "1" | tee status
 
     buildkite-agent artifact upload status
 
