@@ -43,15 +43,19 @@ docker \
 
 cat "$annotation_path"
 
-echo "--- Test Status: ${TESTS_EXIT_STATUS}" 
-
 if grep -q "<details>" "$annotation_path"; then
 
   if ! check_size; then
       echo "--- :warning: Failures too large to annotate"
       echo "The failures are too large to create a build annotation. Please inspect the failed JUnit artifacts manually."
-      TESTS_EXIT_STATUS=0
-      exit $TESTS_EXIT_STATUS
+      
+      cat > status << EOF
+      0
+      EOF
+
+      buildkite-agent artifact upload status
+
+      exit 0
   fi
 
   echo "--- :buildkite: Creating annotation"
@@ -61,7 +65,13 @@ if grep -q "<details>" "$annotation_path"; then
   if [[ "${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAIL_BUILD_ON_ERROR:-false}" =~ (true|on|1) ]]
   then
     echo "--- :boom: Failing build due to error"
-    TESTS_EXIT_STATUS=1
-    exit $TESTS_EXIT_STATUS
+
+    cat > status << EOF
+    1
+    EOF
+
+    buildkite-agent artifact upload status
+
+    exit 1
   fi
 fi
