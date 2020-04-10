@@ -80,6 +80,8 @@ STDERR.puts "--- ✍️ Preparing annotation"
 failures_count = failures.select {|f| f.type == :failure }.length
 errors_count = failures.select {|f| f.type == :error }.length
 
+puts "This is a test"
+
 puts [
   failures_count == 0 ? nil : (failures_count == 1 ? "1 failure" : "#{failures_count} failures"),
   errors_count === 0 ? nil : (errors_count == 1 ? "1 error" : "#{errors_count} errors"),
