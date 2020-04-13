@@ -80,7 +80,7 @@ STDERR.puts "--- ✍️ Preparing annotation"
 failures_count = failures.select {|f| f.type == :failure }.length
 errors_count = failures.select {|f| f.type == :error }.length
 
-puts "<a href=\"https://usp0v3oc82.execute-api.us-west-2.amazonaws.com/alpha/falsenegative?buildkiteLink=#{ENV['BUILDKITE_BUILD_URL']}\">Report a false negative</a>" + "\n\n"
+puts "<a href=\"https://usp0v3oc82.execute-api.us-west-2.amazonaws.com/alpha/falsenegative?buildkiteLink=\"#{ENV['BUILDKITE_BUILD_URL']}\"\">Report a false negative</a>" + "\n\n"
 
 puts [
   failures_count == 0 ? nil : (failures_count == 1 ? "1 failure" : "#{failures_count} failures"),
