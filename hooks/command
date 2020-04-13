@@ -38,6 +38,7 @@ docker \
     --volume "$PLUGIN_DIR/ruby:/src" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN:-}" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT:-}" \
+    --env "BUILDKITE_BUILD_URL=${BUILDKITE_BUILD_URL:-}" \
     ruby:2.5-alpine ruby /src/bin/annotate /junits \
       > "$annotation_path"
 
