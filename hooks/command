@@ -14,6 +14,7 @@ RUBY_IMAGE="${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_RUBY_IMAGE:-ruby:3.1-alpine@sha256
 artifacts_dir="$(pwd)/$(mktemp -d "junit-annotate-plugin-artifacts-tmp.XXXXXXXXXX")"
 annotation_dir="$(pwd)/$(mktemp -d "junit-annotate-plugin-annotation-tmp.XXXXXXXXXX")"
 failures_file_path="./failures_artifacts_names.txt"
+processing_annotation_path="./processing_annotation.md"
 annotation_path="${annotation_dir}/annotation.md"
 annotation_style="info"
 fail_build=0
@@ -96,7 +97,8 @@ elif [[ $exit_code -ne 0 ]]; then
 fi
 
 cat "$annotation_path"
-buildkite-agent artifact upload "${annotation_path}"
+cat "$annotation_path" > "$processing_annotation_path"
+buildkite-agent artifact upload "${processing_annotation_path}"
 
 if [ $has_errors -eq 0 ]; then
   # done in nested if to simplify outer conditions
