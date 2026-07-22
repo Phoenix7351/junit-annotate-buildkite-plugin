@@ -30,7 +30,7 @@ junit_report_files.sort.each do |file|
 
   REXML::XPath.each(doc, '//testsuite/testcase') do |testcase|
     testcases += 1
-    unit_name = testcase.attributes[failure_format].to_s
+    unit_name = testcase.attributes[failure_format].to_s.sub(/\Atesting\.ether\./, '')
     testcase.elements.each("failure | error | skipped") do |elem|
       tests.add(unit_name)
     end
